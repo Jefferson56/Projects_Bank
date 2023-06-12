@@ -5,13 +5,15 @@
             <div class="card text-center">
                 <div class="card-body">
                     <h1 class="card-title text-uppercase">
+                       <a href="/projectDetails/{{id}}?title={{title}}&description={{description}}&evolved={{evolved}}&threat={{threat}}&state={{state}}&creation_date={{creation_date}}">
                         {{title}}
+                       </a>
                     </h1>
                     <p class="m-2">Descripción: {{description}}</p>
                     <p class="m-2">Involucrados: {{evolved}}</p>
                     <p class="m-2">Riesgos: {{threat}}</p>
                     <p class="m-2">Esatdo: {{state}}</p>
-                    <p class="m-2">Fecha de creación: {{creation_date}}</p>
+                    <p class="m-2">Fecha de creación: {{formatDate creation_date}}</p>
                     <a href="/projects/edit/{{id}}" class="btn btn-danger">Editar</a>
                 </div>
             </div>
