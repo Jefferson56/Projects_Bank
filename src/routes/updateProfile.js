@@ -12,7 +12,7 @@ const {isLoggedIn, isNotLoggedIn, isAdmin, isExpert, isExponent}= require('../li
 router.get('/updateProfile', isLoggedIn, async (req, res) => {
     const {fullname, username}= req.user;
     try {
-        res.render('editProfile', {fullname, username});
+        res.render('users/editProfile', {fullname, username});
     } catch (error) {
         console.log(error);
         res.status(400).send('Error redirecting');

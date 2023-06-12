@@ -44,12 +44,12 @@ router.get("/logout", function (req, res, next) {
 
 router.get("/profile", isLoggedIn, (req, res) => {
   //Con isLoggedIn protegemos la ruta profile
-  res.render("profile"); //Se está renderizando la vista profile
+  res.render("users/profile"); //Se está renderizando la vista profile
 });
 
 router.get("/editProfile", isLoggedIn, async (req, res) => {
   //Con isLoggedIn protegemos la ruta profile
-  res.render("editProfile"); //Se está renderizando la vista profile
+  res.render("users/editProfile"); //Se está renderizando la vista profile
 });
 
 module.exports = router;
