@@ -1,0 +1,60 @@
+<div class="container p-4">
+    <div class="row-4">
+            <div class="col-md-12 h-50">
+            <div class="card text-center">
+                <div class="card-body">
+
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Involucrados</th>
+                        <th scope="col">Riegos-Amenazas</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Fecha</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{title}}</td>
+                        <td>{{description}}</td>
+                        <td>{{evolved}}</td>
+                        <td>{{threat}}</td>
+                        <td>{{state}}</td>
+                        <td>{{creation_date}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+ {{!-- //Comentarios --}}
+<div class="container p-4">
+
+   {{#each projectComents}}
+            <div class="col-md-12 h-50">
+            <div class="card text-center">
+              <div class="card-header text-center text-danger bg-dark">
+                    <h3>COMENTARIO</h3>
+                </div>
+                <div class="card-body">
+                    <p class="m-2">{{coment}}</p>
+                </div>
+                <div class="card-footer text-right">
+                  <h6>{{fullname}}, {{timeago creation_date}}</h6>
+                </div>
+            </div>
+         </div>
+         {{else}}
+          <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p class="text-danger">Aún no se han realizado comentarios</p>
+            </div>
+          </div>
+        {{/each}}
+</div>
+</script>

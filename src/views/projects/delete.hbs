@@ -1,0 +1,27 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each projects}}
+         <div class="col-md-12 h-50">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="card-title text-uppercase">
+                       {{title}}
+                    </h1>
+                    <p class="m-2">Descripción: {{description}}</p>
+                    <p class="m-2">Involucrados: {{evolved}}</p>
+                    <p class="m-2">Riesgos: {{threat}}</p>
+                    <p class="m-2">Esatdo: {{state}}</p>
+                    <p class="m-2">Fecha de creación: {{creation_date}}</p>
+                    <a href="/projects/delete/{{id}}" class="btn btn-danger">Borrar</a>
+                </div>
+            </div>
+         </div>
+         {{else}}
+          <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p class="text-danger">Aún no hay proyectos guardados</p>
+            </div>
+          </div>
+        {{/each}}
+    </div>
+</div>

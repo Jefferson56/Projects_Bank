@@ -1,0 +1,44 @@
+<style>
+  #coment_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+</style>
+
+<div class="container p-4">
+    <div class="row">
+        {{#each projects}}
+         <div class="col-md-12 h-50">
+            <div class="card text-center">
+                <div class="card-body">
+                        <h1 class="card-title text-uppercase">
+                            {{title}}
+                        </h1>
+                    <p class="m-2">Descripción: {{description}}</p>
+                    <p class="m-2">Involucrados: {{evolved}}</p>
+                    <p class="m-2">Riesgos: {{threat}}</p>
+                    <p class="m-2">Esatdo: {{state}}</p>
+                    <p class="m-2">Fecha de creación: {{creation_date}}</p>
+                    <div class="col-md-12 h-50">
+                       <form action="/projects/coment/{{id}}" method="POST">
+                           <div class="form-group">
+                               <textarea name="coment" rows="5" class="form-control" placeholder="Comentar Proyecto" required></textarea>
+                           </div>
+                           <div class="form-group col-md-4 mx-auto" id="coment_button">
+                               <button class="btn btn-primary btn-block">Comentar</button>
+                           </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+         {{else}}
+          <div class="col-md-6 mx-auto">
+            <div class="card card-body text-center">
+                <p class="text-danger">Aún no hay proyectos registrados por comentar</p>
+            </div>
+          </div>
+        {{/each}}
+    </div>
+</div>
