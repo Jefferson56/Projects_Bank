@@ -38,7 +38,16 @@ module.exports= {
       // Si el usuario no es un experto, redirige a una página de error o muestra un mensaje de acceso denegado
       res.redirect('/profile');
     }
-    }
+    },
+    isRevoked(req, res, next) {
+      if (req.user && req.user.typeUser === 'REVOKED') {
+        // Si el usuario es un experto, permite el acceso a la ruta
+        return next();
+      } else {
+        // Si el usuario no es un experto, redirige a una página de error o muestra un mensaje de acceso denegado
+        res.redirect('/profile');
+      }
+      }
 };
 
 //Método utilizado para proteger las ruta

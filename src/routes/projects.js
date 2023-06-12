@@ -3,7 +3,7 @@ const router= express.Router();
 
 const conexion= require('../conexion.js');
 
-const {isLoggedIn, isNotLoggedIn, isAdmin, isExpert, isExponent}= require('../lib/auth.js');
+const {isLoggedIn, isNotLoggedIn, isAdmin, isExpert, isExponent, isRevoked}= require('../lib/auth.js');
 
 router.get('/add', isExponent, (req, res) => { //Se indica escuchar por la ruta /add
     res.render('projects/add'); //Se renderiza la vista que se encuentra en la ruta links/add especificamente
@@ -53,12 +53,9 @@ router.get('/coment', isExpert, async (req, res) => { //Con isLoggedIn protegemo
     router.post('/coment/:id', isExpert, async (req, res) => { //Con isLoggedIn protegemos la ruta
         const id_project= parseInt(req.params.id, 10);
         const id_expert= req.user.id;
-        const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
         const {coment}= req.body;
         newComent= {
             coment,
-            creation_date: formattedDate,
             id_expert,
             id_project
         };
@@ -125,22 +122,5 @@ router.post('/edit/:id', isExponent, async (req, res) => { //Con isLoggedIn prot
         console.error(error);
     }
 });
-// router.post('/projects/coment', isExpert, async (req, res) => { //Con isLoggedIn protegemos la ruta
-//     const id= req.user.id;
-//     const {description, evolved, threat, state}= req.body;
-//     const updateProject= {
-//         description,
-//         evolved,
-//         threat,
-//         state
-//     }
-//     try {
-//         await conexion.query('UPDATE projects SET ? WHERE id = ?', [updateProject, id]);
-//         req.flash('success', 'Proyecto editado exitosamente');
-//         res.redirect('/projects');
-//     } catch (error) {
-//         console.error(error);
-//     }
-// });
 
 module.exports= router;
