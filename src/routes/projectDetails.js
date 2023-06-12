@@ -12,10 +12,10 @@ router.get('/projectDetails/:id', async (req, res) => {
 
     try {
             const projectComents= await conexion.query('SELECT * FROM coments c JOIN users u ON (c.id_expert = u.id) WHERE id_project = ?', [id]);
-            res.render('projectDetails', {title, description, evolved, threat, state, creation_date, projectComents: projectComents});
+            res.render('projects/projectDetails', {title, description, evolved, threat, state, creation_date, projectComents: projectComents});
     } catch (error) {
             console.log(error);
-            res.render('projectDetails', {title, description, evolved, threat, state, creation_date});
+            res.render('projects/projectDetails', {title, description, evolved, threat, state, creation_date});
     }
 });
 

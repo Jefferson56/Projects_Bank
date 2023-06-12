@@ -7,7 +7,7 @@ const {isLoggedIn, isNotLoggedIn, isAdmin, isExpert, isExponent}= require('../li
 router.get('/listUser', isAdmin, async (req, res) => {
     try {
         const allUsers= await conexion.query('SELECT * FROM users');
-        res.render('listUser', {users: allUsers});
+        res.render('users/listUser', {users: allUsers});
     } catch (error) {
         console.log(error);
         res.status(500).send('Error retrieving projects');
@@ -17,7 +17,7 @@ router.get('/listUser', isAdmin, async (req, res) => {
 router.get('/revokeUser/:id/:username/:fullname', isAdmin, async (req, res) => {
     const {id, username, fullname}= req.params;
     try {
-        res.render('revokeUser', {id, username, fullname});
+        res.render('users/revokeUser', {id, username, fullname});
     } catch (error) {
         console.log(error);
         res.status(400).send('Error redirecting');
