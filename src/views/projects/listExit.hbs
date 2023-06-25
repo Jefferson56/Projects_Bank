@@ -1,4 +1,4 @@
-            <style>
+              <style>
                a {
                    color: inherit;
                    text-decoration: none;
@@ -14,29 +14,44 @@
                }
            </style>
 
-       <div class="container p-4">
-    <div class="row-4">
-        {{#each projects}}
-        <a href="/projectDetails/{{id}}?title={{title}}&description={{description}}&evolved={{evolved}}&threat={{threat}}&state={{state}}&creation_date={{creation_date}}">
-            <div class="col-md-12 h-50">
+<main class="index">
+{{#if (gt (length projects) 0)}}
+  <div class="container-fluid">
+    <div class="row">
+      {{#each projects}}
+        <div class="col-md-6">
+          <a href="/projectDetails/{{id}}?title={{title}}&description={{description}}&evolved={{evolved}}&threat={{threat}}&state={{state}}&creation_date={{creation_date}}">
             <div class="card text-center">
-                <div class="card-body">
-                        <h1 class="card-title text-uppercase">
-                            {{title}}
-                        </h1>
-                    <p class="m-2">Involucrados: {{evolved}}</p>
-                    <p class="m-2">Estado: {{state}}</p>
-                    <p class="m-2">Fecha de creación: {{timeago creation_date}}</p>
+              <div class="card-body">
+                <div>
+                  <img src="/uploads/{{image}}" alt="Imagen del Proyecto" class="project-image">
                 </div>
+                <h1 class="card-title text-uppercase">
+                  {{title}}
+                </h1>
+                <p class="m-2">Involucrados: {{evolved}}</p>
+                <p class="m-2">Fecha de creación: {{timeago creation_date}}</p>
+              </div>
             </div>
-         </div>
-        </a>
-         {{else}}
-          <div class="col-md-4 mx-auto">
-            <div class="card card-body text-center">
-                <p class="text-danger">Aún no hay proyectos guardados</p>
-            </div>
+          </a>
+        </div>
+
+        {{#if (isOddIndex @index)}}
           </div>
-        {{/each}}
+          <div class="row">
+        {{/if}}
+      {{/each}}
     </div>
-</div>
+  </div>
+{{else}}
+  <div class="container p-4">
+    <div class="row-4">
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p class="text-danger">Aún no hay proyectos guardados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+</main>

@@ -1,5 +1,6 @@
 {{!-- Este es el formulario para registrar los proyectos, se configura desde acá pero es indexado en la página main.hbs --}}
-<div class="container p-4">
+<main class="index">
+    <div class="container p-4">
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card">
@@ -7,12 +8,12 @@
                     <h3 class="text-danger">REGISTRO DE PROYECTOS</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/projects/add" method="POST">
+                    <form action="/projects/add" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" class="form-control" name="title" placeholder="Título" autofocus required>
                         </div>
                         <div class="form-group">
-                            <textarea name="description" rows="10" class="form-control" placeholder="Descripción" required></textarea>
+                            <textarea name="description" rows="5" class="form-control" placeholder="Descripción" required></textarea>
                         </div>
                         <div class="form-group">
                             <textarea name="evolved" rows="5" class="form-control" placeholder="Involucrados" required></textarea>
@@ -32,7 +33,10 @@
                               </select>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">Guardar</button>
+                            <input type="file" id="projectImage" name="projectImage">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger btn-block">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -40,3 +44,4 @@
         </div>
     </div>
 </div>
+</main>
