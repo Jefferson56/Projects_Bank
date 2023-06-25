@@ -46,6 +46,9 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json()); //Se índica a la app que use la función json para tratar archivos de texto
 app.use(passport.initialize()); //Se inincializa passport para poder hacer uso de sus métodos
 app.use(passport.session()); //Se inicializa en session
+app.use('/uploads', express.static('uploads'));
+app.use(express.static('src'));
+
 
 //Variables globales
 app.use((req, res, next) =>{
@@ -64,6 +67,7 @@ app.use(require('./routes/signupAdmin'));
 app.use(require('./routes/revokeUser'));
 app.use(require('./routes/updateProfile'));
 app.use(require('./routes/projectDetails'));
+app.use(require('./routes/settings'));
 
 //Archivos públicos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -72,3 +76,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(app.get('port'), () => { //Se le indica a la aplicación que escuche a través del port
     // console.log('Servidor funcionando a través del puerto', app.get('port'));
 });
+
+// module.exports= upload;

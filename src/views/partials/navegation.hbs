@@ -1,6 +1,7 @@
 {{!-- Esta es la barra de navegación y es integrada en el main, por medio de la 
 nomenclatura de indexación--}}
-<nav class="navbar navbar-expand-lg narvar-dark bg-dark">
+<header class="">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <div class="container-fluid">
       <a href="/">
@@ -9,9 +10,6 @@ nomenclatura de indexación--}}
       </a>
     </div>
     <a class="navbar-brand text-danger" href="/">Proyectos</a>
-    {{!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> --}}
     <div class="collapse navbar-collapse d-flex" id="navbarNav">
       <ul class="navbar-nav ml-auto d-flex">
         {{#if (eq user.typeUser "EXPONENT")}}
@@ -28,6 +26,10 @@ nomenclatura de indexación--}}
           <a href="/listExit" class="nav-link text-danger">Casos Exitosos</a>
           <a href="/profile" class="nav-link text-danger">Perfil</a>
           <a href="/logout" class="nav-link text-danger">Cerrar Sesión</a>
+          <a href="/profile">
+          <div class="logoTipo">
+          <img src="/img/Session.png" alt="Ícono de sesión" name="logo" class="card-img-top mx-auto m-2" width="20" height="40">
+          </a>
         {{else if (eq user.typeUser "ADMIN")}}
           <a href="/listExit" class="nav-link text-danger">Casos Exitosos</a>
           <li class="nav-item dropdown text-danger">
@@ -36,21 +38,34 @@ nomenclatura de indexación--}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item text-danger" href="/signupAdmin">Registrar Usuarios</a>
-          <a class="dropdown-item text-danger" href="/projects/listDelete">Eliminar Proyectos</a>
           <a class="dropdown-item text-danger" href="/listUser">Actualizar Usuarios</a>
+          <a class="dropdown-item text-danger" href="/projects/listDelete">Eliminar Proyectos</a>
+          <a class="dropdown-item text-danger" href="/settings">Historial de Cambios</a>
         </div>
       </li>
           <a href="/profile" class="nav-link text-danger">Perfil</a>
           <a href="/logout" class="nav-link text-danger">Cerrar Sesión</a>
+          <a href="/profile">
+          <div class="logoTipo">
+          <img src="/img/Session.png" alt="Ícono de sesión" name="logo" class="card-img-top mx-auto m-2" width="20" height="40">
+          </a>
         {{else if (eq user.typeUser "EXPERT")}}
           <a href="/listExit" class="nav-link text-danger">Casos Exitosos</a>
           <a href="/projects/coment" class="nav-link text-danger">Comentar Proyectos</a>
           <a href="/profile" class="nav-link text-danger">Perfil</a>
           <a href="/logout" class="nav-link text-danger">Cerrar Sesión</a>
+          <a href="/profile">
+          <div class="logoTipo">
+          <img src="/img/Session.png" alt="Ícono de sesión" name="logo" class="card-img-top mx-auto m-2" width="20" height="40">
+          </a>
           {{else if (eq user.typeUser "REVOKED")}}
           <a href="/listExit" class="nav-link text-danger">Casos Exitosos</a>
           <a href="/profile" class="nav-link text-danger">Perfil</a>
           <a href="/logout" class="nav-link text-danger">Cerrar Sesión</a>
+          <a href="/profile">
+          <div class="logoTipo">
+          <img src="/img/Session.png" alt="Ícono de sesión" name="logo" class="card-img-top mx-auto m-2" width="20" height="40">
+          </a>
         {{else}}
           <a href="/listExit" class="nav-link text-danger">Casos Exitosos</a>
           <a href="/signin" class="nav-link text-danger">Iniciar Sesión</a>
@@ -61,3 +76,6 @@ nomenclatura de indexación--}}
   </div>
   </div>
 </nav>
+</header>
+
+

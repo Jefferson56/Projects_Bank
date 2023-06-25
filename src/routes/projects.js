@@ -1,16 +1,53 @@
 const express= require('express');
 const router= express.Router();
 
+  const multer= require('multer');
+
+  const path = require('path');
+
+// // Directorio de destino para los archivos cargados
+// const upload = multer({ dest: 'uploads/' });
+
+
+    // Configuración de multer para guardar la imagen en la carpeta de uploads
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            // const uploadsFolder = path.join(__dirname, '..', 'uploads'); // Ruta relativa a la carpeta "uploads" desde el directorio actual
+            cb(null, 'src/uploads/');
+          },
+        filename: (req, file, cb) => {
+          // Generar un nombre único para la imagen
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+          cb(null, uniqueSuffix + '-' + file.originalname);
+        }
+      });
+      
+      // Configuración de multer para aceptar solo imágenes
+      const fileFilter = (req, file, cb) => {
+        if (file.mimetype.startsWith('image/')) {
+          cb(null, true);
+        } else {
+          cb(new Error('Only image files are allowed.'), false);
+        }
+      };
+      
+      // Inicializar multer con la configuración
+      const upload = multer({ storage, fileFilter });
+
+
 const conexion= require('../conexion.js');
 
-const {isLoggedIn, isNotLoggedIn, isAdmin, isExpert, isExponent, isRevoked}= require('../lib/auth.js');
+const {isAdmin, isExpert, isExponent}= require('../lib/auth.js');
 
 router.get('/add', isExponent, (req, res) => { //Se indica escuchar por la ruta /add
     res.render('projects/add'); //Se renderiza la vista que se encuentra en la ruta links/add especificamente
 });
 
-router.post('/add', isExponent, async (req, res) => { //La función flecha se convierte en asincrónica
+
+router.post('/add', upload.single('projectImage'), isExponent, async (req, res) => { //La función flecha se convierte en asincrónica
     const {title, description, evolved, threat, state}= req.body; //Trae los valores guardados por el usuario en el formulario
+    const file = req.file.filename;
+
     // Obtener la fecha actual
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
@@ -20,6 +57,7 @@ router.post('/add', isExponent, async (req, res) => { //La función flecha se co
         evolved,
         threat,
         state,
+        image: file,
         creation_date: formattedDate,
         id_exponents: req.user.id
     };
@@ -60,9 +98,7 @@ router.get('/coment', isExpert, async (req, res) => { //Con isLoggedIn protegemo
             id_project
         };
         try {
-            console.log('Entramos a la consulta');
             const result= await conexion.query('INSERT INTO coments SET ?', [newComent]); //Espera a que se ejecute la consulta, en la consulta se envía el objeto con los datos a la base de datos
-            console.log(result); 
             req.flash('success','Comentario guardado correctamente'); //Mensaje que se muestra en el momento es que se guarda un nuevo link
             res.redirect('back');
           } catch (error) {
@@ -70,7 +106,6 @@ router.get('/coment', isExpert, async (req, res) => { //Con isLoggedIn protegemo
                 console.error(error);
             }
         }
-        console.log('tenemos error');
         });
 
 router.get('/listDelete', isAdmin, async (req, res) => { //Con isLoggedIn protegemos la ruta
@@ -84,9 +119,18 @@ router.get('/listDelete', isAdmin, async (req, res) => { //Con isLoggedIn proteg
     });
 
 router.get('/delete/:id', isAdmin, async (req, res) => { //Con isLoggedIn protegemos la ruta
+    const id_modifier= req.user.id;
     const id= req.params.id;
     try {
         await conexion.query('DELETE FROM coments WHERE id_project = ?', [id]);
+        const projectName= await conexion.query('SELECT title FROM projects WHERE id = ?', [id]);
+        const exchange= 'ELIMINACIÓN DE PROYECTO';
+        const newSetting= {
+          id_modifier,
+          modified_name: projectName[0].title,
+          exchange_rate: exchange
+        };
+        await conexion.query('INSERT INTO settings SET ?', [newSetting]);
         await conexion.query('DELETE FROM projects WHERE id = ?', [id]);
         req.flash('success', 'Proyecto eliminado correctamente');
         res.redirect('back');

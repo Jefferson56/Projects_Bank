@@ -25,13 +25,22 @@ router.get('/revokeUser/:id/:username/:fullname', isAdmin, async (req, res) => {
 });
 
 router.post('/updateTypeUser/:id/:fullname', isAdmin, async (req, res) => {
+    const id_modifier= req.user.id;
     const {id, fullname}= req.params;
     const {typeUser}= req.body;
-    updateTypeUser= {
+    const updateTypeUser= {
         typeUser
-    }
+    };
     try {
         await conexion.query('UPDATE users SET ? WHERE id = ?', [updateTypeUser, id]);
+        const username= await conexion.query('SELECT username FROM users WHERE id = ?', [id]);
+        const exchange= 'CAMBIO DE ROL';
+        const newSetting= {
+          id_modifier,
+          modified_name: username[0].username,
+          exchange_rate: exchange
+        };
+        await conexion.query('INSERT INTO settings SET ?', [newSetting]);
         req.flash('success', 'Permisos para el usuario: '+fullname+ ', han sido actualizados correctamente');
         res.redirect('/listUser');
     } catch (error) {
